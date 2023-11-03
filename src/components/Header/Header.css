@@ -1,0 +1,28 @@
+/* Header.css */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .header h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .header button {
+    font-size: 16px;
+  }
+  /* Wallet.css */
+
+.super-huge-fancy-text {
+    font-size: 50px; /* Adjust as needed for desired font size */
+    font-family: 'cursive'; /* Add a fancy font-family of your choice */
+    color: #09090a; /* Set the color to a fancy shade */
+ 
+  }
+  

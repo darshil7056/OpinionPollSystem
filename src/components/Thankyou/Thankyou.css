@@ -1,0 +1,14 @@
+.h1-container {
+  font-family: 'CoreCircus', sans-serif;
+  font-size: 6vw;
+  text-align: center;
+  line-height: 1;
+  margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  color: rgb(0, 0, 0);
+  letter-spacing: -.5rem;
+}
+

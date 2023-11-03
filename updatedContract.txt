@@ -1,0 +1,99 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract StudentRegistry {
+    struct Student {
+        string name;
+        bool exists;
+        address walletAddress;
+    }
+
+    struct Evaluation {
+        uint8 rating;
+        string comments;
+        bool submitted;
+    }
+
+    mapping(uint256 => Student) public students;
+    mapping(address => Evaluation) public evaluations;  // Mapping of addresses to evaluations
+    mapping(address => bool) public participants;  // Mapping to keep track of participants
+    address public admin;
+
+    uint256[] public verifiedStudentIDs;
+
+    modifier onlyAdmin() {
+        require(msg.sender == admin, "Only admin can perform this action");
+        _;
+    }
+
+    modifier hasRegistered(uint256 _id) {
+       require(students[_id].walletAddress == msg.sender, "Participant wallet address does not match");
+        _;
+    }
+
+    modifier hasNotVoted() {
+        require(!participants[msg.sender], "Participant has already voted");
+        _;
+    }
+
+    event EvaluationSubmitted(address indexed participant, uint8 rating, string comments);
+
+    constructor() {
+        admin = msg.sender;
+    }
+
+    function getStudentID(address _walletAddress) internal view returns (uint256) {
+        // Implement a function to get student ID from wallet address
+    }
+
+    function addStudents(uint256[] memory _ids, string[] memory _names) public onlyAdmin {
+        require(_ids.length == _names.length, "IDs and names length mismatch");
+
+        for (uint256 i = 0; i < _ids.length; i++) {
+            students[_ids[i]] = Student(_names[i], true, address(0)); // Initialize walletAddress as address(0)
+        }
+    }
+
+    function verifyStudent(uint256 _id) public {
+        require(students[_id].exists, "Student does not exist");
+        require(students[_id].walletAddress == address(0), "Student already verified");
+
+        students[_id].walletAddress = msg.sender;
+        verifiedStudentIDs.push(_id);
+    }
+
+    function getStudentWalletAddress(uint256 _id) public view returns (address) {
+        return students[_id].walletAddress;
+    }
+
+    function isStudentVerified(uint256 _id) public view returns (bool) {
+        return students[_id].walletAddress != address(0);
+    }
+
+    function getVerifiedStudents() public view returns (uint256[] memory, address[] memory) {
+        uint256[] memory ids = new uint256[](verifiedStudentIDs.length);
+        address[] memory addresses = new address[](verifiedStudentIDs.length);
+
+        for (uint i = 0; i < verifiedStudentIDs.length; i++) {
+            ids[i] = verifiedStudentIDs[i];
+            addresses[i] = students[verifiedStudentIDs[i]].walletAddress;
+        }
+
+        return (ids, addresses);
+    }
+
+    function submitEvaluation(uint8 _rating, string memory _comments, uint256 _id) public hasRegistered(_id) hasNotVoted {
+        require(_rating >= 0 && _rating <= 10, "Rating must be between 0 and 10.");
+
+        Evaluation memory evaluation = Evaluation({
+            rating: _rating,
+            comments: _comments,
+            submitted: true
+        });
+
+        evaluations[msg.sender] = evaluation;
+        participants[msg.sender] = true; // Set participant as voted
+
+        emit EvaluationSubmitted(msg.sender, _rating, _comments);
+    }
+}

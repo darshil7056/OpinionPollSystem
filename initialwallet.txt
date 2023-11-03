@@ -1,0 +1,137 @@
+import logo from './logo.svg';
+import './App.css';
+import Web3 from 'web3';
+import { Button } from 'react-bootstrap';
+import { useState } from 'react';
+import {contractaddress,abi} from "./contract/contract"
+const { ethers } = require('ethers');
+
+function App() {
+  const [verifiedStudents, setVerifiedStudents] = useState(null);
+  const [web3, setWeb3] = useState(null);
+  const [connected, setConnected] = useState(false);
+  const [address, setAddress] = useState('');
+  const [balance, setBalance] = useState('');
+  // const { walletAddress, setWalletAddress } = useWallet();
+  const loadBlockchainData = async () => {
+    let web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
+    const contract = new web3.eth.Contract(abi, contractaddress);
+
+    // Call the getVerifiedStudents function
+    const data = await contract.methods.getVerifiedStudents().call();
+    console.log(data,"aa")
+    const students = {};
+    for (let i = 0; i < data.__length__; i++) {
+        const id = i + 1; // Assuming IDs start from 1
+        const address = data[i][1];
+        students[id] = { id, address };
+    }
+
+    setVerifiedStudents(students);
+}
+
+
+
+
+
+ // console.log(verifiedStudents,"a")
+
+  const connectToMetaMask = async () => {
+    try {
+      if (typeof window.ethereum !== 'undefined') {
+        const accounts = await window.ethereum.request({
+          method: 'eth_requestAccounts',
+        });
+        const address = accounts[0];
+        setAddress(address);
+        setConnected(true);
+      //  setWalletAddress(address); // Update the wallet address using the context
+        fetchBalance(address);
+      } else {
+        alert('MetaMask not found. Please install MetaMask to connect.');
+      }
+    } catch (error) {
+      console.error('Error connecting to MetaMask:', error);
+    }
+  };
+
+  const disconnectFromMetaMask = async() => {
+
+    setAddress('');
+    setBalance('');
+    setConnected(false);
+    //setWalletAddress(''); // Reset the wallet address to an empty string
+  };
+
+  const fetchBalance = async (address) => {
+    try {
+      const web3 = new Web3(window.ethereum);
+      const balance = await web3.eth.getBalance(address);
+      const formattedBalance = web3.utils.fromWei(balance, 'ether');
+   
+      setBalance(formattedBalance);
+    } catch (error) {
+      console.error('Error fetching balance:', error);
+    }
+  };
+
+  const handleClick = async () => {
+    await loadBlockchainData();
+  }
+  
+  // Inside your verifyStudent function:
+  const verifyStudent = async () => {
+    try {
+      const web3 = new Web3(window.ethereum);
+      const contract = new web3.eth.Contract(abi, contractaddress);
+      const accounts = await web3.eth.getAccounts();
+      console.log(accounts[0],"aaaaf")
+      const id = 4
+  
+      await contract.methods.verifyStudent(id).send({
+        from: accounts[0],
+        gasLimit: 6721975, // Adjust based on the expected gas cost of your function
+        gasPrice: '5000000000' // This is 5 gwei, you can adjust based on network conditions
+      });
+  
+      console.log(`Transaction sent to verify student with ID: ${id}`);
+    } catch (error) {
+      console.error('Error verifying student:', error);
+      console.error('Error message:', error.message);
+    }
+  };
+  
+  
+
+
+
+  return (
+    <div>
+      <div className='login'>
+          {connected ? (
+            <>
+              <div className='balance'>
+                <p>Address: {address}</p>
+                <p>Balance: {balance} ETH</p>
+              </div>
+              <Button className='navlink' onClick={disconnectFromMetaMask}>
+                Disconnect Wallet
+              </Button>
+            </>
+          ) : (
+            <Button className='navlink ' onClick={connectToMetaMask}>
+              Connect Wallet
+            </Button>
+          )}
+        </div>
+        <Button  onClick={handleClick}>
+              Get
+            </Button>
+            <Button  onClick={verifyStudent}>
+              Post
+            </Button>
+    </div>
+  );
+}
+
+export default App;
