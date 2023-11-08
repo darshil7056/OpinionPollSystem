@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Register.css';
 import Header from '../Header/Header';
 import CryptoJS from 'crypto-js';
+import homeimg from "../../images/homeimg.jpg"
 
 function Register() {
   const navigate = useNavigate();
@@ -21,23 +22,26 @@ function Register() {
     // window.alert(enrollmentNo);
     const encryptedEnrollmentNo = CryptoJS.AES.encrypt(enrollmentNo, 'secretKey').toString();
     // Redirect to the next page
-    navigate(`/evaluate/${encryptedEnrollmentNo}`);
+    navigate(`/evaluate`);
   };
 
   
 
   return (
-    <>
-      <div className="maincontainer">
-        <div className="headerClass"> <Header /> </div>
+    <><div><img className="imgRegister" src={homeimg} /></div>
+     <div className="headerClass"  style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}> <Header /> </div>
+    <div className="register-container">
+      
+      <div className="maincontainer ">
+       
         <div> <div id="logo-container"></div></div>
         <div className="form-register">
           <header>
-            <h1>Register for Professor Evaluation System</h1>
+            <h1>Register for Evaluation System</h1>
             <form onSubmit={handleSubmit}>
               <div className="button-container">
                 <div> <label htmlFor="enrollmentNo">Enrollment No:</label></div>
-                <div><input type="text" id="enrollmentNo" name="enrollmentNo" className="input-field" required /></div>
+                <div><input autocomplete="off" type="text" id="enrollmentNo" name="enrollmentNo" className="input-field" required /></div>
               </div>
               <div>
                 <input type="submit" value="Register" className="submit-btn" />
@@ -47,7 +51,7 @@ function Register() {
           </header>
         </div>
       </div>
-    </>
+    </div></>
   );
 }
 

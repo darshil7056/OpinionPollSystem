@@ -49,7 +49,7 @@ function Header() {
 
     return (
         <div className="wallet-container">
-       <div> <h1 className="super-huge-fancy-text">Connect your MetaMask wallet <br/> to get started </h1>
+       <div> <h1 className="super-huge-fancy-text">Connect your MetaMask wallet to get started </h1>
         </div>  
           <div className='login'>
           {connected ? (

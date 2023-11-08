@@ -1,3 +1,32 @@
+.imgHome{
+    opacity: 0.4;
+    margin: 0 10% 0 10%; 
+    width: 80%; /* Set the desired width */
+    height: auto; /* Allow the height to adjust proportionally */
+    object-fit: cover; /* Maintain aspect ratio, cropping if necessary */
+  }
+
+.imgRegister{
+    opacity: 0.4;
+    margin: 0 10% 0 10%; 
+    width: 80%; /* Set the desired width */
+    height: auto; /* Allow the height to adjust proportionally */
+    object-fit: cover; /* Maintain aspect ratio, cropping if necessary */
+}
+
+.register-container {
+    /* font-size: 6vw; */
+    text-align: center;
+    line-height: 1;
+    margin: 0;
+    top: 70%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    color: rgb(0, 0, 0);
+    /* letter-spacing: -.5rem; */
+    
+  }
 
 #logo-container svg {
     width: 250px;
@@ -25,7 +54,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
-    padding: 30px;
+    padding: 40px;
     max-width: 400px;
     width: 100%;
     animation: fadeIn 0.5s ease;

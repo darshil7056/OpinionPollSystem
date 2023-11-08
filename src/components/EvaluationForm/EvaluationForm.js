@@ -11,11 +11,11 @@ function EvaluationForm() {
   const [feedbackRating, setFeedbackRating] = useState(0);
   const [managementRating, setManagementRating] = useState(0);
   const [impactRating, setImpactRating] = useState(0);
-  let { enrollmentNo } = useParams();
-  console.log(enrollmentNo)
+  //let { enrollmentNo } = useParams();
+  //console.log(enrollmentNo)
     // Decrypt the enrollment number
-    const decryptedEnrollmentNo = CryptoJS.AES.decrypt(enrollmentNo, 'secretKey').toString(CryptoJS.enc.Utf8);
-    console.log(decryptedEnrollmentNo)
+    // const decryptedEnrollmentNo = CryptoJS.AES.decrypt(enrollmentNo, 'secretKey').toString(CryptoJS.enc.Utf8);
+    // console.log(decryptedEnrollmentNo)
 
 
   const handleSubmit = (event) => {

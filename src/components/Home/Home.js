@@ -1,23 +1,28 @@
 import React from 'react';
-import './Home.css'; // Assuming styles.css is in the same directory as this component
+import "./Home.css"
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+import homeimg from "../../images/homeimg.jpg"
+import StickyHead from "../StickyHead/StickyHead";
 
 
-function TeacherEvaluationSystem() {
+function Home() {
 const navigate = useNavigate();
 const buttonClick = () => {
     navigate("/register")
 }
   return (
-    <div>
-      <header className = "head">
-        <h1>Welcome to Professor Evaluation System</h1>
-        <p>Revolutionizing the way students evaluate their professors' performance.</p>
-        <Button className="btn" onClick={buttonClick}>Get Started </Button>
-      </header>
-    </div>
+       
+      <>
+      <StickyHead />
+      <div><img className="imgHome" src={homeimg} /></div>
+
+      <div className="home-container">Welcome to Opinion Poll System</div>
+      <div className="phome-container">Revolutionizing the way students evaluate their professors</div>
+     <div className="bt-container"> <Button className="btn" onClick={buttonClick}>Get Started </Button></div>
+     
+      </>
   );
 }
 
-export default TeacherEvaluationSystem;
+export default Home;

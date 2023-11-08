@@ -1,0 +1,32 @@
+/* Add this CSS to your stylesheets */
+
+/* Style for the table container */
+.table-container {
+    margin-top: 20px;
+  }
+  
+  /* Style for the table itself */
+  .evaluation-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .evaluation-table th,
+  .evaluation-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .evaluation-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .evaluation-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .evaluation-table tr:hover {
+    background-color: #ddd;
+  }
+  
