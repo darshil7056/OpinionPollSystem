@@ -21,6 +21,7 @@
     cursor: pointer;
     display: flex;
     justify-content: end;
+    margin: 5px;
   }
   
   .admin-button:hover {

@@ -1,0 +1,24 @@
+/* AddStudent.css */
+
+.add-student-container {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .dropzone {
+    border: 2px dashed #cccccc;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+  }
+  
+  .dropzone p {
+    margin: 0;
+  }
+  
+  .dropzone.active {
+    border-color: #007bff;
+  }
+  

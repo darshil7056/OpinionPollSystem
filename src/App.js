@@ -7,6 +7,9 @@ import Test from './components/Test';
 import Thankyou from './components/Thankyou/Thankyou';
 import AdminHome from './components/admin/AdminHome';
 import ViewEvaluation from './components/admin/ViewEvaluation/ViewEvaluation';
+import AddProfessor from './components/admin/AddProfessor/AddProfessor';
+import AddStudent from './components/admin/AddStudent/AddStudent';
+import ProfessorHome from './components/Professor/ProfessorHome';
 
 const App = () => {
 
@@ -22,6 +25,9 @@ const App = () => {
            <Route path="/thankyou" element={<Thankyou/>} />
            <Route path="/admin" element={<AdminHome/>} />
            <Route path="/admin/viewEvaluation" element={<ViewEvaluation/>} />
+           <Route path="/admin/AddProfessor" element={<AddProfessor/>} />
+           <Route path="/admin/AddStudent" element={<AddStudent/>} />
+           <Route path="/Professor" element={<ProfessorHome/>} />
 
          {/* </Route> */}
        </Routes>
