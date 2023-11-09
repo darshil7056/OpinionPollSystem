@@ -10,6 +10,7 @@ import ViewEvaluation from './components/admin/ViewEvaluation/ViewEvaluation';
 import AddProfessor from './components/admin/AddProfessor/AddProfessor';
 import AddStudent from './components/admin/AddStudent/AddStudent';
 import ProfessorHome from './components/Professor/ProfessorHome';
+import ViewProfessor from './components/admin/ViewProfessor/ViewProfessor';
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
            <Route path="/admin" element={<AdminHome/>} />
            <Route path="/admin/viewEvaluation" element={<ViewEvaluation/>} />
            <Route path="/admin/AddProfessor" element={<AddProfessor/>} />
+           <Route path="/admin/ViewProfessor" element={<ViewProfessor/>} />
            <Route path="/admin/AddStudent" element={<AddStudent/>} />
            <Route path="/Professor" element={<ProfessorHome/>} />
 

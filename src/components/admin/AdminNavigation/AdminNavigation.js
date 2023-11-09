@@ -16,6 +16,7 @@ const AdminNavigation = () => {
             </svg>
             <NavLink to = "/admin/AddStudent" className="tabs">Add Students</NavLink>
             <NavLink to = "/admin/AddProfessor" className="tabs">Add Professor</NavLink>
+            <NavLink to = "/admin/ViewProfessor" className="tabs">View Professor</NavLink>
             <NavLink to = "/admin/viewEvaluation" className="tabs">View Evaluation</NavLink>
 
           </li>
