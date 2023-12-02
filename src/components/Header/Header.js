@@ -48,28 +48,32 @@ function Header() {
   };
 
     return (
-        <div className="wallet-container">
-       <div> <h1 className="super-huge-fancy-text">Connect your MetaMask wallet to get started </h1>
-        </div>  
-          <div className='login'>
-          {connected ? (
+        <><div className="wallet-container">
+        </div>
+    <div class="container mt-5">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Metamask Connection</h5>
+              <p class="card-text">Click the button below to connect your Metamask wallet.</p>
+              {connected ? (
             <>
+          
+              <Button className='navlink' onClick={disconnectFromMetaMask}>
+                Disconnect Wallet
+              </Button>
               <div className='balance'>
                 <p>Address: {address}</p>
                 <p>Balance: {balance} ETH</p>
               </div>
-              <Button className='navlink' onClick={disconnectFromMetaMask}>
-                Disconnect Wallet
-              </Button>
             </>
           ) : (
             <Button className='navlink ' onClick={connectToMetaMask}>
               Connect Wallet
             </Button>
           )}
-        </div>
-       
-        </div>
+            </div>
+          </div>
+        </div></>
       );
 }
 

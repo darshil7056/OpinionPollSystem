@@ -1,6 +1,7 @@
 import React from 'react';
 import AdminNavigation from '../AdminNavigation/AdminNavigation';
 import "./ViewEvaluation.css"
+import ProfessorNavigation from '../AdminNavigation/ProfessorNavigation';
 
 const ViewEvaluation = () => {
     const staticData = [
@@ -38,7 +39,8 @@ const ViewEvaluation = () => {
     
   return (
     <>
-        <AdminNavigation />
+        {/* <AdminNavigation /> */}
+        <ProfessorNavigation />
       <h2>View Evaluation </h2>
       <div className="table-container">
       <table className="evaluation-table">

@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const StickyHead = () => {
     const navigate = useNavigate()
     const handleAdminLogin = () => {
-        navigate("/admin")
+        navigate("/admin/AddStudent")
     }
     const handleProfessorLogin = () => {
       navigate("/Professor")

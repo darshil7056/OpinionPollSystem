@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import AdminNavigation from '../AdminNavigation/AdminNavigation';
 import { useDropzone } from 'react-dropzone';
 import "./AddStudent.css"
-import { Button } from 'react-bootstrap';
+import { Button,Spinner} from 'react-bootstrap';
 import { ethers } from 'ethers';
 import { contractaddress,abi } from '../../../contract/contract';
 
@@ -11,7 +11,11 @@ const AddStudent = () => {
     const[stdName,setstdName]=useState("")
     const [provider, setProvider] = useState(null);
     const [contract, setContract] = useState(null);
+    const [fileName, setFileName] = useState("");
+    const [loading, setLoading] = useState(false); // Added loading state
     const onDrop = useCallback(acceptedFiles => {
+        const file = acceptedFiles[0]; // Get the first file from the array
+        setFileName(file.name); // Set the file name in state
         const reader = new FileReader();
 
         reader.onload = () => {
@@ -36,15 +40,23 @@ const AddStudent = () => {
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
-    const AddStudentFun = async() => {
+    const AddStudentFun = async () => {
+        setLoading(true); 
         if (!provider || !contract) return;
 
-       // const value = ethers.utils.parseUnits(inputValue, 0); // Assuming you're storing in ether
-    
-        const tx = await contract.addStudents(stdId,stdName);
-        await tx.wait();
-        alert('Value stored successfully!');
-    }
+        try {
+          // Set loading to true when starting the transaction
+
+            const tx = await contract.addStudents(stdId, stdName);
+          const receipt = await tx.wait();
+            alert('Value stored successfully! Transaction Hash: ' + receipt.transactionHash);
+        } catch (error) {
+            console.error('Error while processing transaction:', error);
+            alert('Error while processing transaction. Please check the console for details.');
+        } finally {
+            setLoading(false); // Set loading to false whether the transaction succeeds or fails
+        }
+    };
     useEffect(() => {
         const ethereum = window.ethereum;
           if (ethereum) {
@@ -61,14 +73,17 @@ const AddStudent = () => {
     return (
         <>
             <AdminNavigation />
-            <div className="add-student-container">
+            <div className={`add-student-container ${loading ? 'loading' : ''}`}>
                 <h2>Add Students</h2>
                 <div {...getRootProps({ className: 'dropzone' })}>
                     <input {...getInputProps()} />
                     <p>Drag & drop an Excel file here, or click to select one</p>
                 </div>
-            </div>
+             {   fileName ?? <p>: {fileName}</p>
+}            
             <div> <Button onClick={AddStudentFun}>Upload</Button></div>
+            </div>
+            {loading && <Spinner animation="border" variant="primary" />} {/* Show Spinner while loading */}
             <h4></h4>
            
         </>

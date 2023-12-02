@@ -1,10 +1,10 @@
 import React from 'react';
-import AdminNavigation from '../admin/AdminNavigation/AdminNavigation';
+import ProfessorNavigation from '../admin/AdminNavigation/ProfessorNavigation';
 
 const ProfessorHome = () => {
   return (
     <>
-        <AdminNavigation />
+        <ProfessorNavigation />
       <h2>Comming Soon ProfessorHome </h2>
       
     </>

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import AdminNavigation from '../AdminNavigation/AdminNavigation';
 import './AddProfessor.css'; // Import the CSS file
 import { ethers } from 'ethers';
-import { contractaddress,abi } from "../../../contract/contract"
+import { contractaddress, abi } from "../../../contract/contract"
+import { Spinner } from 'react-bootstrap';
 
 const AddProfessor = () => {
   const [professorID, setProfessorID] = useState('');
@@ -10,17 +11,27 @@ const AddProfessor = () => {
   const [walletAddress, setWalletAddress] = useState('');
   const [provider, setProvider] = useState(null);
   const [contract, setContract] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleAddProfessor = async() => {
-    // Implement code to handle adding the professor here
-    console.log(typeof(name),typeof(professorID),typeof(walletAddress))
+  const handleAddProfessor = async () => {
+    // // Implement code to handle adding the professor here
+    // console.log(typeof(name),typeof(professorID),typeof(walletAddress))
+    setLoading(true);
     if (!provider || !contract) return;
+    try {
+      // const value = ethers.utils.parseUnits(inputValue, 0); // Assuming you're storing in ether
+      const id = ethers.utils.parseUnits(professorID, 0); // Assuming you're storing in ether
+      const tx = await contract.addProfessor(id, name, walletAddress);
+      const receipt = await tx.wait();
+      alert('Value stored successfully! Transaction Hash: ' + receipt.transactionHash);
+    } catch (error) {
+      console.error('Error while processing transaction:', error);
+      alert('Error while processing transaction. Please check the console for details.');
+    } finally {
+      setLoading(false); // Set loading to false whether the transaction succeeds or fails
+    }
 
-   // const value = ethers.utils.parseUnits(inputValue, 0); // Assuming you're storing in ether
-   const id = ethers.utils.parseUnits(professorID, 0); // Assuming you're storing in ether
-    const tx = await contract.addProfessor(id,name,walletAddress);
-    await tx.wait();
-    alert('Value stored successfully!');
+
 
   };
   useEffect(() => {
@@ -39,19 +50,19 @@ const AddProfessor = () => {
     console.log('Component mounted');
   }, []);
 
-  
+
   return (
     <>
       <AdminNavigation />
-      <div className="add-professor-container">
+      <div className={`add-professor-container  ${loading ? 'loading' : ''}`}>
         <h2>Add Professor</h2>
         <div className="input-group">
           <label>
             Professor ID:
-            <input 
-              type="text" 
-              value={professorID} 
-              onChange={(e) => setProfessorID(e.target.value)} 
+            <input
+              type="text"
+              value={professorID}
+              onChange={(e) => setProfessorID(e.target.value)}
               className="input-field"
             />
           </label>
@@ -59,10 +70,10 @@ const AddProfessor = () => {
         <div className="input-group">
           <label>
             Name:
-            <input 
-              type="text" 
-              value={name} 
-              onChange={(e) => setName(e.target.value)} 
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="input-field"
             />
           </label>
@@ -70,16 +81,18 @@ const AddProfessor = () => {
         <div className="input-group">
           <label>
             Wallet Address:
-            <input 
-              type="text" 
-              value={walletAddress} 
-              onChange={(e) => setWalletAddress(e.target.value)} 
+            <input
+              type="text"
+              value={walletAddress}
+              onChange={(e) => setWalletAddress(e.target.value)}
               className="input-field"
             />
           </label>
         </div>
         <button onClick={handleAddProfessor} className="add-professor-button">Add Professor</button>
+       
       </div>
+      {loading && <Spinner animation="border" variant="primary" />}
     </>
   );
 };

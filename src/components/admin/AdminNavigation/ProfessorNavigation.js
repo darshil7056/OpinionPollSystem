@@ -1,7 +1,7 @@
 import React from 'react';
 import "./AdminNavigation.css"
 import { NavLink } from 'react-router-dom';
-const AdminNavigation = () => {
+const ProfessorNavigation = () => {
   return (
     <>
       <svg style={{ display: 'none' }}>
@@ -14,12 +14,9 @@ const AdminNavigation = () => {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
               <use xlinkHref="#home"></use>
             </svg>
-            <NavLink to = "/admin/AddStudent" className="tabs">Add Students</NavLink>
-            <NavLink to = "/admin/AddProfessor" className="tabs">Add Professor</NavLink>
-            <NavLink to = "/admin/ViewProfessor" className="tabs">View Professor</NavLink>
-            <NavLink to = "/" className="tabs">Home</NavLink>
-  
-
+            {/* <NavLink to = "/admin/AddStudent" className="tabs">Add Students</NavLink> */}
+            <NavLink to = "/admin/viewEvaluation" className="tabs">View Evaluation</NavLink>
+            
           </li>
 
           {/* Add the other navigation items here */}
@@ -35,4 +32,4 @@ const AdminNavigation = () => {
   );
 };
 
-export default AdminNavigation;
+export default ProfessorNavigation;
