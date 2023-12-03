@@ -17,6 +17,7 @@ function Header() {
         const address = accounts[0];
         setAddress(address);
         setConnected(true);
+     
       //  setWalletAddress(address); // Update the wallet address using the context
         fetchBalance(address);
       } else {

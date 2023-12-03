@@ -42,7 +42,7 @@ function EvaluationForm() {
           <label htmlFor="professor">Professor Name:</label>
           <select id="professor" name="professor" className="input-field"   value={professor}
             onChange={(e) => setProfessor(e.target.value)} required>
-            <option value="professor1">Professor 1</option>
+            <option value="professor1">Mr Harsh</option>
             <option value="professor2">Professor 2</option>
             <option value="professor3">Professor 3</option>
           </select> 

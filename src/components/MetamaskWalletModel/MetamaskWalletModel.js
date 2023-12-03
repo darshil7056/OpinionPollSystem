@@ -1,63 +1,90 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { Button, Container, Navbar } from 'react-bootstrap';
+import './MetamaskWalletModel.css'; // Create a CSS file for additional styling
+import Web3 from 'web3';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import Header from '../Header/Header';
-
-import { ethers } from 'ethers';
-import { contractaddress,abi } from '../../contract/contract';
 
 function MetamaskWalletModel() {
   const navigate = useNavigate();
-  const [provider, setProvider] = useState(null);
-  const [contract, setContract] = useState(null);
-
-  const handleSubmit = async(event) => {
-    try{
-      event.preventDefault();
-    const enrollmentNo = event.target.enrollmentNo.value;
-    if (!provider || !contract) return;
-
-    // const value = ethers.utils.parseUnits(inputValue, 0); // Assuming you're storing in ether
- 
-     const tx = await contract.verifyStudent(enrollmentNo);
-     await tx.wait();
-     alert('Value successfull!');
-    // You can add additional validation or processing logic here
-    // window.alert(enrollmentNo);
-   // const encryptedEnrollmentNo = CryptoJS.AES.encrypt(enrollmentNo, 'secretKey').toString();
-    // Redirect to the next page
-    navigate(`/evaluate`);
-    }catch(error){
-      console.log(error.message.message)
-    }
-    
-  };
-  useEffect(() => {
-    const ethereum = window.ethereum;
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        const storageContract = new ethers.Contract(contractaddress, abi, signer);
-        setProvider(provider);
-        setContract(storageContract);
+  const [connected, setConnected] = useState(false);
+  const [address, setAddress] = useState('');
+  const [balance, setBalance] = useState('');
+  const connectToMetaMask = async () => {
+    try {
+      if (typeof window.ethereum !== 'undefined') {
+        const accounts = await window.ethereum.request({
+          method: 'eth_requestAccounts',
+        });
+        const address = accounts[0];
+        setAddress(address);
+        setConnected(true);
+        console.log(address)
+        if(address == "0xd2bbb0650eaece5b60f9d38253f076eedc4270eb")
+        {
+          navigate("/admin/AddStudent")
+        }else{
+          window.alert("admin access denied")
+        }
+      
+      //  setWalletAddress(address); // Update the wallet address using the context
+        fetchBalance(address);
       } else {
-        alert('Please install MetaMask');
+        alert('MetaMask not found. Please install MetaMask to connect.');
       }
-    }, []);
+    } catch (error) {
+      console.error('Error connecting to MetaMask:', error);
+    }
+  };
 
-  
+  const disconnectFromMetaMask = async() => {
 
-  return (
-    <>
-     <div className="headerClass"  style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}> <Header /> </div>
+    setAddress('');
+    setBalance('');
+    setConnected(false);
+    //setWalletAddress(''); // Reset the wallet address to an empty string
+  };
 
+  const fetchBalance = async (address) => {
+    try {
+      const web3 = new Web3(window.ethereum);
+      const balance = await web3.eth.getBalance(address);
+      const formattedBalance = web3.utils.fromWei(balance, 'ether');
+   
+      setBalance(formattedBalance);
+    } catch (error) {
+      console.error('Error fetching balance:', error);
+    }
+  };
 
-
-
-
-    
-    </>
-  );
+    return (
+        <><div className="wallet-container">
+        </div>
+    <div class="container mt-5">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Metamask Connection</h5>
+              <p class="card-text">Click the button below to connect your Metamask wallet.</p>
+              {connected ? (
+            <>
+          
+              <Button className='navlink' onClick={disconnectFromMetaMask}>
+                Disconnect Wallet
+              </Button>
+              {/* <div className='balance'>
+                <p>Address: {address}</p>
+                <p>Balance: {balance} ETH</p>
+              </div> */}
+            </>
+          ) : (
+            <Button className='navlink ' onClick={connectToMetaMask}>
+              Connect Wallet
+            </Button>
+          )}
+            </div>
+          </div>
+        </div></>
+      );
 }
 
 export default MetamaskWalletModel;

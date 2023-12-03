@@ -70,24 +70,51 @@ const AddStudent = () => {
           }
         }, []);
 
-    return (
-        <>
-            <AdminNavigation />
-            <div className={`add-student-container ${loading ? 'loading' : ''}`}>
+        return (
+            <>
+              <AdminNavigation />
+              {loading && (
+                <div className="loading-spinner-container">
+                  <Spinner animation="border" variant="primary" />
+                </div>
+              )}
+              <div className={`add-student-container ${loading ? 'loading' : ''}`}>
                 <h2>Add Students</h2>
                 <div {...getRootProps({ className: 'dropzone' })}>
-                    <input {...getInputProps()} />
-                    <p>Drag & drop an Excel file here, or click to select one</p>
+                  <input {...getInputProps()} />
+                  <p>Drag & drop an Excel file here, or click to select one</p>
                 </div>
-             {   fileName ?? <p>: {fileName}</p>
-}            
-            <div> <Button onClick={AddStudentFun}>Upload</Button></div>
-            </div>
-            {loading && <Spinner animation="border" variant="primary" />} {/* Show Spinner while loading */}
-            <h4></h4>
-           
-        </>
-    );
+                {fileName && <p>: {fileName}</p>}
+                <div className="btnUpload">
+                  <Button onClick={AddStudentFun}>Upload</Button>
+                </div>
+              </div>
+              <h4></h4>
+            </>
+          );
+          return (
+            <>
+              <AdminNavigation />
+              {loading && (
+                <div className="loading-spinner-container">
+                  <Spinner animation="border" variant="primary" />
+                </div>
+              )}
+              <div className={`add-student-container ${loading ? 'loading' : ''}`}>
+                <h2>Add Students</h2>
+                <div {...getRootProps({ className: 'dropzone' })}>
+                  <input {...getInputProps()} />
+                  <p>Drag & drop an Excel file here, or click to select one</p>
+                </div>
+                {fileName && <p>: {fileName}</p>}
+                <div className="btnUpload">
+                  <Button onClick={AddStudentFun}>Upload</Button>
+                </div>
+              </div>
+              <h4></h4>
+            </>
+          );
+                    
 };
 
 export default AddStudent;

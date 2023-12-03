@@ -54,6 +54,11 @@ const AddProfessor = () => {
   return (
     <>
       <AdminNavigation />
+      {loading && (
+      <div className="loading-spinner-container">
+        <Spinner animation="border" variant="primary" />
+      </div>
+    )}
       <div className={`add-professor-container  ${loading ? 'loading' : ''}`}>
         <h2>Add Professor</h2>
         <div className="input-group">
@@ -92,7 +97,7 @@ const AddProfessor = () => {
         <button onClick={handleAddProfessor} className="add-professor-button">Add Professor</button>
        
       </div>
-      {loading && <Spinner animation="border" variant="primary" />}
+     
     </>
   );
 };
