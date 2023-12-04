@@ -29,6 +29,7 @@ function Register() {
     // Redirect to the next page
     navigate(`/evaluate`);
     }catch(error){
+      alert('Execution reverted: Student ID does not exist');
       console.log(error.message.message)
     }
     

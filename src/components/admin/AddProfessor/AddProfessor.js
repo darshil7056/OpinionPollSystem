@@ -26,13 +26,10 @@ const AddProfessor = () => {
       alert('Value stored successfully! Transaction Hash: ' + receipt.transactionHash);
     } catch (error) {
       console.error('Error while processing transaction:', error);
-      alert('Error while processing transaction. Please check the console for details.');
+      
     } finally {
       setLoading(false); // Set loading to false whether the transaction succeeds or fails
     }
-
-
-
   };
   useEffect(() => {
     // This code will run when the component mounts

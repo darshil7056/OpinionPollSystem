@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './EvaluationForm.css';
 import StarRatings from 'react-star-ratings';
-import { useParams } from 'react-router-dom';
-import CryptoJS from 'crypto-js';
+import { useNavigate } from 'react-router-dom';
 
 function EvaluationForm() {
-  const [professor, setProfessor] = useState("professor1");
+  const navigate = useNavigate();
+  const [professor, setProfessor] = useState("Mr Harsh");
   const [teachingRating, setTeachingRating] = useState(0);
   const [assignmentsRating, setAssignmentsRating] = useState(0);
   const [feedbackRating, setFeedbackRating] = useState(0);
@@ -24,7 +24,7 @@ function EvaluationForm() {
 
     // You can add logic to handle the submission here
 
-    // For demonstration purposes, let's log the values to the console
+    // For demonstration purposes, let's log the values to the console  
     console.log('Professor Name:', professor);
     console.log('Teaching Rating:', teachingRating);
     console.log('Assignments Rating:', assignmentsRating);
@@ -32,6 +32,8 @@ function EvaluationForm() {
     console.log('Management Rating:', managementRating);
     console.log('Impact Rating:', impactRating);
     console.log('Comments:', comments);
+    window.alert("Evaluation Submitted")
+    navigate("/")
   };
 
   return (
@@ -43,8 +45,8 @@ function EvaluationForm() {
           <select id="professor" name="professor" className="input-field"   value={professor}
             onChange={(e) => setProfessor(e.target.value)} required>
             <option value="professor1">Mr Harsh</option>
-            <option value="professor2">Professor 2</option>
-            <option value="professor3">Professor 3</option>
+            <option value="professor2">Dr Sam</option>
+            <option value="professor3">Dr Rudani</option>
           </select> 
 
           <label htmlFor="teachingRating">Teaching Style and Methods:</label>
