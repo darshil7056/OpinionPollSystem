@@ -14,9 +14,9 @@ const AdminNavigation = () => {
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
               <use xlinkHref="#home"></use>
             </svg>
-            <NavLink to = "/admin/AddStudent" className="tabs">Add Students</NavLink>
-            <NavLink to = "/admin/AddProfessor" className="tabs">Add Professor</NavLink>
-            <NavLink to = "/admin/ViewProfessor" className="tabs">View Professor</NavLink>
+            <NavLink to = "/admin/AddStudent" className="tabs">Add Students</NavLink><hr></hr>
+            <NavLink to = "/admin/AddProfessor" className="tabs">Add Professor</NavLink><hr></hr>
+            <NavLink to = "/admin/ViewProfessor" className="tabs">View Professor</NavLink><hr></hr>
             <NavLink to = "/" className="tabs">Home</NavLink>
   
 

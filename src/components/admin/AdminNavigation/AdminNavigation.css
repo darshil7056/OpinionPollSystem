@@ -83,8 +83,10 @@
   }
 
   .tabs{
+    text-decoration: none;
     display: flex;
-    font-size: 16px;
+    font-size: 20px;
+    padding: 10px 0;
     color: white;
       &:hover{
         display: block;
@@ -92,6 +94,3 @@
     }
    
   }
-  
-  
-  

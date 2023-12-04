@@ -60,36 +60,36 @@ const AddProfessor = () => {
         <h2>Add Professor</h2>
         <div className="input-group">
           <label>
-            Professor ID:
+            Professor ID:</label>
             <input
               type="text"
               value={professorID}
               onChange={(e) => setProfessorID(e.target.value)}
               className="input-field"
             />
-          </label>
+          
         </div>
         <div className="input-group">
           <label>
-            Name:
+            Name:</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="input-field"
             />
-          </label>
+          
         </div>
         <div className="input-group">
           <label>
-            Wallet Address:
+            Wallet Address:</label>
             <input
               type="text"
               value={walletAddress}
               onChange={(e) => setWalletAddress(e.target.value)}
               className="input-field"
             />
-          </label>
+          
         </div>
         <button onClick={handleAddProfessor} className="add-professor-button">Add Professor</button>
        

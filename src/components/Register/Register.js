@@ -6,15 +6,19 @@ import CryptoJS from 'crypto-js';
 import homeimg from "../../images/homeimg.jpg"
 import { ethers } from 'ethers';
 import { contractaddress,abi } from '../../contract/contract';
+import { Spinner } from 'react-bootstrap';
+
 
 function Register() {
   const navigate = useNavigate();
   const [provider, setProvider] = useState(null);
   const [contract, setContract] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async(event) => {
     try{
       event.preventDefault();
+      setLoading(true);
     const enrollmentNo = event.target.enrollmentNo.value;
     if (!provider || !contract) return;
 
@@ -31,6 +35,8 @@ function Register() {
     }catch(error){
       alert('Execution reverted: Student ID does not exist');
       console.log(error.message.message)
+    }finally{
+      setLoading(false);
     }
     
   };
@@ -50,9 +56,15 @@ function Register() {
   
 
   return (
-    <><div><img className="imgRegister" src={homeimg} /></div>
-     <div className="headerClass"  style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}> <Header /> </div>
-    <div className="register-container">
+    <>
+    {loading && (
+      <div className="loading-spinner-container">
+        <Spinner animation="border" variant="primary" />
+      </div>
+    )}
+    <div><img className={`imgRegister  ${loading ? 'loading' : ''}`} src={homeimg} /></div>
+     <div className={`headerClass  ${loading ? 'loading' : ''}`}  style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}> <Header /> </div>
+    <div className={`register-container  ${loading ? 'loading' : ''}`}>
       
       <div className="maincontainer ">
        
@@ -66,7 +78,7 @@ function Register() {
                 <div><input autocomplete="off" type="text" id="enrollmentNo" name="enrollmentNo" className="input-field" required /></div>
               </div>
               <div>
-                <input type="submit" value="Register" className="submit-btn" />
+                <input type="submit" value="Register" className="submit-btn"/>
                 <p className="error-msg" id="errorMsg"></p>
               </div>
             </form>
@@ -75,6 +87,6 @@ function Register() {
       </div>
     </div></>
   );
-}
+  }
 
-export default Register;
+  export default Register;
